@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GetRatesResponse: Encodable {
+class GetRatesResponse: Decodable {
     
     var historical: Bool?
     var date: String?

@@ -13,6 +13,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        let request = GetLatestRatesRequest(base: nil, symbols: ["EUR", "USD"])
+        if let data = try? JSONEncoder().encode(request) {
+            
+            print("Request: ", try? JSONSerialization.jsonObject(with: data, options: .allowFragments))
+
+        }
     }
 
 
