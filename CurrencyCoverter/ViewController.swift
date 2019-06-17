@@ -10,16 +10,14 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let container = DependencyContainer()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        let request = GetLatestRatesRequest(base: nil, symbols: ["EUR", "USD"])
-        if let data = try? JSONEncoder().encode(request) {
-            
-            print("Request: ", try? JSONSerialization.jsonObject(with: data, options: .allowFragments))
-
-        }
+//        container.currencyService.getLatestRates(from: nil, to: nil)
+//        container.currencyService.changeBaseCurrency(newBaseCurrency: "RUB")
+        container.currencyService.convert(from: "RUB", to: "USD", amount: 10394.3, date: nil)
     }
 
 

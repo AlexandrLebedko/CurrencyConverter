@@ -10,7 +10,7 @@ import Foundation
 
 protocol ICurrencyService {
     
-    func getLatestRates(from: String, to: [String])
+    func getLatestRates(from: String?, to: [String]?)
     func changeBaseCurrency(newBaseCurrency: String)
     func convert(from: String, to: String, amount: Float, date: Date?)
 }

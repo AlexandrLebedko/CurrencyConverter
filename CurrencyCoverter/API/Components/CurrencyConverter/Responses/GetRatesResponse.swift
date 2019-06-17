@@ -10,8 +10,9 @@ import Foundation
 
 class GetRatesResponse: Decodable {
     
+    var success: Bool?
     var historical: Bool?
-    var date: String?
+    var date: Date?
     var timestamp: Int?
     var base: String?
     var rates: [String: Float]?

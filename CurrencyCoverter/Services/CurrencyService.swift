@@ -16,7 +16,7 @@ class CurrencyService: ICurrencyService {
         self.currencyApiClient = currencyApiClient
     }
     
-    func getLatestRates(from: String, to: [String]) {
+    func getLatestRates(from: String?, to: [String]?) {
         let request = GetLatestRatesRequest(base: from, symbols: to)
         currencyApiClient.send(request) { (result) in
             switch result {
@@ -29,10 +29,26 @@ class CurrencyService: ICurrencyService {
     }
     
     func changeBaseCurrency(newBaseCurrency: String) {
-        
+        let request = ChangeBaseCurrencyRequest(base: newBaseCurrency)
+        currencyApiClient.send(request) { (result) in
+            switch result {
+            case let .success(changeBaseCurrencyResponse):
+                print("Change base currency response: ", changeBaseCurrencyResponse)
+            case let .failure(error):
+                print("Change base currency error: ", error)
+            }
+        }
     }
     
     func convert(from: String, to: String, amount: Float, date: Date?) {
-        
+        let request = ConvertCurrencyRequest(from: from, to: to, amount: amount, date: date)
+        currencyApiClient.send(request) { (result) in
+            switch result {
+            case let .success(changeBaseCurrencyResponse):
+                print("Convert currency response: ", changeBaseCurrencyResponse)
+            case let .failure(error):
+                print("Convert currency error: ", error)
+            }
+        }
     }    
 }

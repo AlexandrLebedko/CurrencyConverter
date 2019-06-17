@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GetLatestRatesRequest: FixerIoApiRequest, APIRequest {
+struct GetLatestRatesRequest: APIRequest {
     typealias Response = GetRatesResponse
     
     var base: String?
@@ -17,15 +17,10 @@ class GetLatestRatesRequest: FixerIoApiRequest, APIRequest {
     init(base: String?, symbols: [String]?) {
         self.base = base
         self.symbols = symbols
-        super.init()
     }
     
     var resourceName: String {
         return "latest"
-    }
-    
-    var body: [String : Any]? {
-        return nil
     }
     
     var httpMethod: HTTPMethod {

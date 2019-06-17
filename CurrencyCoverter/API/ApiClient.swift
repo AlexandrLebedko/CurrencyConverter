@@ -30,16 +30,34 @@ public class ApiClient {
         return urlRequest
     }
     
+    /// Encodes a URL based on the given request
+    public func endpoint<T: APIRequest>(for request: T) -> URL {
+        guard let baseUrl = URL(string: request.resourceName, relativeTo: baseEndpointUrl) else {
+            fatalError("Wrong resourceName: \(request.resourceName)")
+        }
+    
+        var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: true)!
+
+        if request.httpMethod == .GET {
+            let parameters = try? URLQueryEncoder.encode(request)
+            components.queryItems = parameters
+        }
+        
+        return components.url ?? baseUrl
+    }
+    
     func send<T: APIRequest>(
         _ request: T,
         completion: @escaping ResultCallback<T.Response>) {
         let endpoint = self.endpoint(for: request)
         
+        print("Endpoint: ", endpoint)
         let task = session.dataTask(with: URLRequest(url: endpoint)) { data, response, error in
             if let data = data {
                 do {
-                    let marvelResponse = try JSONDecoder().decode(T.Response.self, from: data)
-                    completion(.success(marvelResponse))
+                    print("Raw response: ", try? JSONSerialization.jsonObject(with: data, options: .allowFragments))
+                    let response = try JSONDecoder().decode(T.Response.self, from: data)
+                    completion(.success(response))
                 } catch let error {
                     completion(.failure(error))
                 }
@@ -48,21 +66,5 @@ public class ApiClient {
             }
         }
         task.resume()
-    }
-    
-    /// Encodes a URL based on the given request
-    private func endpoint<T: APIRequest>(for request: T) -> URL {
-        guard let baseUrl = URL(string: request.resourceName, relativeTo: baseEndpointUrl) else {
-            fatalError("Wrong resourceName: \(request.resourceName)")
-        }
-    
-        if request.httpMethod == .GET {
-            var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: true)!
-            let parameters = try? URLQueryEncoder.encode(request)
-            components.queryItems = parameters
-
-        }
-        
-        return baseUrl
     }
 }

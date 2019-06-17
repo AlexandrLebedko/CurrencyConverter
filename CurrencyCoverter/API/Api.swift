@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum HTTPMethod {
+public enum HTTPMethod {
     case POST
     case GET
     
@@ -24,6 +24,4 @@ enum HTTPMethod {
 
 struct Api {
     
-    public static let currencyEndpointUrlString = "http://data.fixer.io/api/"
-    public static let currencyApiAccessKey = "49f7babac9c6821992cdf3885b2b1320"
 }
