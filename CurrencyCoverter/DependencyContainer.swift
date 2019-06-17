@@ -11,7 +11,9 @@ import Foundation
 class DependencyContainer {
     
     lazy var currencyApiClient: ApiClient = {
-        return CurrencyApiClient(endpointUrlString: Api.currencyEndpointUrlString)
+        return CurrencyApiClient(endpointUrlString: CurrencyApi.currencyEndpointUrlString,
+                                 jsonDecoder: CurrencyJSONDecoder(),
+                                 jsonEncoder: CurrencyJSONEncoder())
     }()
     
     lazy var currencyService: ICurrencyService = {

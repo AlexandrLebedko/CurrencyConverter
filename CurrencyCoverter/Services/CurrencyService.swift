@@ -16,12 +16,16 @@ class CurrencyService: ICurrencyService {
         self.currencyApiClient = currencyApiClient
     }
     
-    func getLatestRates(from: String?, to: [String]?) {
+    func getLatestRates(from: String?, to: [String]?, callback: @escaping GetLatestRatesCallback) {
         let request = GetLatestRatesRequest(base: from, symbols: to)
         currencyApiClient.send(request) { (result) in
             switch result {
             case let .success(getLatestRatesResponse):
-                print("Get latest rates response: ", getLatestRatesResponse)
+                if let rates = CurrencyRatesDTOParser.currencyRates(from: getLatestRatesResponse) {
+                    callback(.success(rates.rates))
+                } else {
+                    callback(.failure(.decoding))
+                }
             case let .failure(error):
                 print("Get latest rates error: ", error)
             }

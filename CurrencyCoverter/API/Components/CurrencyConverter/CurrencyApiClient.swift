@@ -12,7 +12,7 @@ class CurrencyApiClient: ApiClient {
     
     override func endpoint<T>(for request: T) -> URL where T : APIRequest {
         let url = super.endpoint(for: request)
-        let accessKeyComponent = URLQueryItem(name: "access_key", value: Api.currencyApiAccessKey)
+        let accessKeyComponent = URLQueryItem(name: "access_key", value: CurrencyApi.currencyApiAccessKey)
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
         var queryItems = components?.queryItems ?? []
         queryItems.append(accessKeyComponent)

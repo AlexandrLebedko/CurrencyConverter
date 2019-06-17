@@ -8,9 +8,11 @@
 
 import Foundation
 
+typealias GetLatestRatesCallback = (Swift.Result<[CurrencyRate], APIError>) -> Void
+
 protocol ICurrencyService {
     
-    func getLatestRates(from: String?, to: [String]?)
+    func getLatestRates(from: String?, to: [String]?, callback: @escaping GetLatestRatesCallback)
     func changeBaseCurrency(newBaseCurrency: String)
     func convert(from: String, to: String, amount: Float, date: Date?)
 }

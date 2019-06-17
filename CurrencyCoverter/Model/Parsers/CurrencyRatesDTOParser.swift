@@ -15,7 +15,8 @@ class CurrencyRatesDTOParser {
         guard let base = response.base, let rates = response.rates else { return nil }
         let timestamp = response.timestamp ?? Int(Date().timeIntervalSince1970)
         let date = response.date ?? Date()
+        let currencyRates: [CurrencyRate] = rates.compactMap { CurrencyRate(symbol: $0.key, rate: $0.value) }
         
-        return CurrencyRates(timestamp: timestamp, base: <#T##String#>, date: <#T##Date#>, rates: <#T##[CurrencyRate]#>)
+        return CurrencyRates(timestamp: timestamp, base: base, date: date, rates: currencyRates)
     }
 }

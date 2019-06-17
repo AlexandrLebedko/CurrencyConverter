@@ -12,16 +12,20 @@ public class ApiClient {
     
     private var baseEndpointUrl: URL
     private let session = URLSession(configuration: .default)
+    private var jsonEncoder: JSONEncoder
+    private var jsonDecoder: JSONDecoder
 
-    init(endpointUrlString: String) {
+    init(endpointUrlString: String, jsonDecoder: JSONDecoder?, jsonEncoder: JSONEncoder?) {
         self.baseEndpointUrl = URL(string: endpointUrlString)!
+        self.jsonDecoder = jsonDecoder ?? JSONDecoder()
+        self.jsonEncoder = jsonEncoder ?? JSONEncoder()
     }
     
     private func urlRequest<T: APIRequest>(_ request: T) -> URLRequest {
         let endpoint = self.endpoint(for: request)
         var urlRequest = URLRequest(url: endpoint)
         urlRequest.httpMethod = request.httpMethod.value
-        urlRequest.httpBody = try? JSONEncoder().encode(request)
+        urlRequest.httpBody = try? jsonEncoder.encode(request)
 
         if request.httpMethod == .POST {
             urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -56,7 +60,7 @@ public class ApiClient {
             if let data = data {
                 do {
                     print("Raw response: ", try? JSONSerialization.jsonObject(with: data, options: .allowFragments))
-                    let response = try JSONDecoder().decode(T.Response.self, from: data)
+                    let response = try self.jsonDecoder.decode(T.Response.self, from: data)
                     completion(.success(response))
                 } catch let error {
                     completion(.failure(error))

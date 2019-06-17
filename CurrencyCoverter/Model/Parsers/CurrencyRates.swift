@@ -9,7 +9,7 @@
 import Foundation
 
 struct CurrencyRates {
-    var timestamp: Int64
+    var timestamp: Int
     var base: String
     var date: Date
     var rates: [CurrencyRate]
