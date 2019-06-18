@@ -9,7 +9,7 @@
 import Foundation
 
 struct ChangeBaseCurrencyRequest: APIRequest {
-    typealias Response = ChangeBaseCurrencyResponse
+    typealias Response = GetRatesResponse
     
     var base: String
     

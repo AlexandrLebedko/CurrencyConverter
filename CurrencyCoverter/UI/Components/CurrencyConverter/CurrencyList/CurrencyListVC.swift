@@ -7,15 +7,26 @@
 //
 
 import UIKit
+import ReactiveSwift
+
+typealias OnCurrencyChangedBlock = ((String?) -> Void)
 
 class CurrencyListVC: UIViewController {
     
     private var viewModel: CurrencyListViewModel
-    private var coordinator: ICurrencyCoordinator
+    private var coordinator: ICoordinator
+    private var currencyListTableAdapter = CurrencyListTableAdapter()
+    private var onCurrencyChangedBlock: ((String?) -> Void)
     
-    init(viewModel: CurrencyListViewModel, coordinator: ICurrencyCoordinator) {
+    @IBOutlet weak var currencyListTableView: RTableView!
+    @IBOutlet weak var topBar: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var closeButton: UIButton!
+    
+    init(viewModel: CurrencyListViewModel, coordinator: ICoordinator, onCurrencyChangedBlock: @escaping OnCurrencyChangedBlock) {
         self.viewModel = viewModel
         self.coordinator = coordinator
+        self.onCurrencyChangedBlock = onCurrencyChangedBlock
         super.init(nibName: "CurrencyListVC", bundle: nil)
     }
     
@@ -25,6 +36,33 @@ class CurrencyListVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        bind()
+        setup()
+        viewModel.loadData()
     }
+    
+    func bind() {
+        currencyListTableView.reactive.rDataSource <~ viewModel.currencyListTableDataSource
+        viewModel.currencyChangedObserver.signal.skipNil()
+            .observeValues { [weak self] in
+                self?.onCurrencyChangedBlock($0)
+                self?.closeButtonHandler()
+        }
+    }
+    
+    func setup() {
+        currencyListTableView.adapter = currencyListTableAdapter
+        currencyListTableAdapter.didSelectCellAction = { [unowned self] _, _, object in
+            if let currency = object as? Currency {
+                self.viewModel.select(currency: currency)
+            }
+        }
+    }
+    
+    @IBAction func closeButtonHandler() {
+        dismiss(animated: true, completion: nil)
+    }
+    
 
 }

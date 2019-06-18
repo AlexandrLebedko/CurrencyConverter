@@ -11,6 +11,7 @@ import UIKit
 public enum View: String {
     
     case currencyRateTVC = "CurrencyRateTVC"
+    case currencyListTVC = "CurrencyListTVC"
     
     var className: String {
         let moduleName = NSStringFromClass(AppDelegate.self)

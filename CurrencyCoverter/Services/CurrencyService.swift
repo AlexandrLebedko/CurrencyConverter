@@ -22,7 +22,7 @@ class CurrencyService: ICurrencyService {
             switch result {
             case let .success(getLatestRatesResponse):
                 if let rates = CurrencyRatesDTOParser.currencyRates(from: getLatestRatesResponse) {
-                    callback(.success(rates.rates))
+                    callback(.success(rates))
                 } else {
                     callback(.failure(.decoding))
                 }
@@ -32,12 +32,16 @@ class CurrencyService: ICurrencyService {
         }
     }
     
-    func changeBaseCurrency(newBaseCurrency: String) {
+    func changeBaseCurrency(newBaseCurrency: String, callback: @escaping ChangeBaseCurrencyCallback) {
         let request = ChangeBaseCurrencyRequest(base: newBaseCurrency)
         currencyApiClient.send(request) { (result) in
             switch result {
             case let .success(changeBaseCurrencyResponse):
-                print("Change base currency response: ", changeBaseCurrencyResponse)
+                if let rates = CurrencyRatesDTOParser.currencyRates(from: changeBaseCurrencyResponse) {
+                    callback(.success(rates))
+                } else {
+                    callback(.failure(.decoding))
+                }
             case let .failure(error):
                 print("Change base currency error: ", error)
             }
@@ -54,5 +58,21 @@ class CurrencyService: ICurrencyService {
                 print("Convert currency error: ", error)
             }
         }
-    }    
+    }
+    
+    func getSupportedSymbols(callback: @escaping GetSupportedSymbolsCallback) {
+        let request = GetSupportedSymbolsRequest()
+        currencyApiClient.send(request) { (result) in
+            switch result {
+            case let .success(getSupportedSymbolsResponse):
+                if let currencies = CurrencyDTOParser.currencies(from: getSupportedSymbolsResponse) {
+                    callback(.success(currencies))
+                } else {
+                    callback(.failure(.decoding))
+                }
+            case let .failure(error):
+                print("Get supported symbols error: ", error)
+            }
+        }
+    }
 }

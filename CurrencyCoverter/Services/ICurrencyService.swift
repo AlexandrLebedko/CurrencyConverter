@@ -8,11 +8,14 @@
 
 import Foundation
 
-typealias GetLatestRatesCallback = (Swift.Result<[CurrencyRate], APIError>) -> Void
+typealias GetLatestRatesCallback = (Swift.Result<CurrencyRates, APIError>) -> Void
+typealias ChangeBaseCurrencyCallback = (Swift.Result<CurrencyRates, APIError>) -> Void
+typealias GetSupportedSymbolsCallback = (Swift.Result<[Currency], APIError>) -> Void
 
 protocol ICurrencyService {
     
     func getLatestRates(from: String?, to: [String]?, callback: @escaping GetLatestRatesCallback)
-    func changeBaseCurrency(newBaseCurrency: String)
+    func changeBaseCurrency(newBaseCurrency: String, callback: @escaping ChangeBaseCurrencyCallback)
     func convert(from: String, to: String, amount: Float, date: Date?)
+    func getSupportedSymbols(callback: @escaping GetSupportedSymbolsCallback)
 }

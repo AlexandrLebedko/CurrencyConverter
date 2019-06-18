@@ -21,6 +21,7 @@ class CurrencyRateTVC: RTableViewCell<CurrencyRateTVCModel> {
         self.countryFlagImageView.image = model.countryFlatImageViewImage
         self.rateLabel.text = model.rateLabelText
         self.symbolLabel.text = model.symbolLabelText
+        self.rateLabel.isHidden = model.rateLabelIsHidden
     }
     
 }

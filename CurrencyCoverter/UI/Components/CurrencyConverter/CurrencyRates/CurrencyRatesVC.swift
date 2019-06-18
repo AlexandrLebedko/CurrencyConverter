@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import ReactiveSwift
 
 class CurrencyRatesVC: UIViewController {
     
     private var viewModel: CurrencyRatesViewModel
     private var coordinator: ICurrencyCoordinator
-    private var currencyTableAdapter: RTableViewAdapter?
+    private var currencyTableAdapter = CurrencyRatesTableAdapter()
+    
+    @IBOutlet weak var currencyRatesTableView: RTableView!
+    @IBOutlet weak var topBar: UIView!
+    @IBOutlet weak var changeBaseCurrencyButton: UIButton!
     
     init(viewModel: CurrencyRatesViewModel, coordinator: ICurrencyCoordinator) {
         self.viewModel = viewModel
@@ -27,7 +32,34 @@ class CurrencyRatesVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        currencyTableAdapter = RTableViewAdapter()
+        bind()
+        setup()
+        viewModel.loadData()
     }
+    
+    func bind() {
+        changeBaseCurrencyButton.reactive.image(for: .normal) <~ viewModel.baseCurrencyButtonImage
+        changeBaseCurrencyButton.reactive.title(for: .normal) <~ viewModel.baseCurrencyButtonTitle
+        currencyRatesTableView.reactive.rDataSource <~ viewModel.currencyTableDataSource
+    }
+    
+    func setup() {
+        currencyRatesTableView.adapter = currencyTableAdapter
+        currencyTableAdapter.didSelectCellAction = { [unowned self] _, _, object in
+            if let currencyRate = object as? CurrencyRate {
+                self.coordinator.navigateToConverter(with: currencyRate)
+            }
+        }
+    }
+    
+    @IBAction func changeBaseCurrencyButtonHandler() {
+        coordinator.navigateToCurrencyList()
+    }
+}
 
+extension CurrencyRatesVC: UpdatableWithCurrency {
+    
+    func onBaseCurrencyChanged(baseCurrencySymbol: String?) {
+        viewModel.loadData()
+    }
 }

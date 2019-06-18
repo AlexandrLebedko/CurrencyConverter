@@ -59,5 +59,14 @@ class RTableViewAdapter: NSObject, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let object = dataSource?.objectAt(indexPath: indexPath) else { return }
         didSelectCellAction?(tableView, indexPath, object)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return nil
+    }
+    
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return nil
     }
 }

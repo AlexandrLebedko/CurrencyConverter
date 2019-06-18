@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveSwift
 
 open class RTableView: UITableView {
     
@@ -65,5 +66,16 @@ open class RTableView: UITableView {
     
     open override func awakeFromNib() {
         super.awakeFromNib()
+    }
+}
+
+extension Reactive where Base: RTableView {
+    
+    public var rDataSource: BindingTarget<RTableViewDataSource?> {
+        return makeBindingTarget { (tableView, u) in
+            if u != nil {
+                tableView.set(dataSource: u)
+            }
+        }
     }
 }

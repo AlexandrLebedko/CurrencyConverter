@@ -8,10 +8,14 @@
 
 import Foundation
 
+protocol UpdatableWithCurrency {
+    func onBaseCurrencyChanged(baseCurrencySymbol: String?)
+}
+
 protocol ICurrencyCoordinator {
     
-    func changeBaseRate()
-    func selectRate()
+    func navigateToCurrencyList()
+    func navigateToConverter(with currencyRate: CurrencyRate)
 }
 
 class CurrencyCoordinator: Coordinator {
@@ -25,11 +29,21 @@ class CurrencyCoordinator: Coordinator {
 
 extension CurrencyCoordinator: ICurrencyCoordinator {
     
-    func changeBaseRate() {
+    func navigateToCurrencyList() {
+        let closure: OnCurrencyChangedBlock = { [weak self] newBaseCurrency in
+            self?.navigationController.viewControllers.forEach({ (viewController) in
+                (viewController as? UpdatableWithCurrency)?.onBaseCurrencyChanged(baseCurrencySymbol: newBaseCurrency)
+            })
+        }
         
+        let assembly = CurrencyListAssembly(dependencyContainer: self.dependencyContainer)
+        let vc = assembly.build(with: (self, closure))
+        navigationController.present(vc, animated: true, completion: nil)
     }
     
-    func selectRate() {
-        
+    func navigateToConverter(with currencyRate: CurrencyRate) {
+        let assembly = CurrencyConvertAssembly(dependencyContainer: self.dependencyContainer)
+        let vc = assembly.build(with: (self, currencyRate))
+        navigationController.pushViewController(vc, animated: true)
     }
 }

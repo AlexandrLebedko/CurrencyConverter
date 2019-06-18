@@ -10,5 +10,6 @@ target 'CurrencyCoverter' do
 pod 'ReactiveSwift'
 pod 'ReactiveCocoa'
 pod 'Result'
+pod 'SwiftKeychainWrapper'
 
 end

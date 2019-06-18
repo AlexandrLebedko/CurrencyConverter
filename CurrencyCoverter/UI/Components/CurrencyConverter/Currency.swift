@@ -12,3 +12,10 @@ struct Currency {
     var symbol: String
     var name: String
 }
+
+extension Currency: Equatable {
+    
+    static func == (lhs: Currency, rhs: Currency) -> Bool {
+        return lhs.symbol == rhs.symbol
+    }
+}

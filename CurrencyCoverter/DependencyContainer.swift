@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 
 class DependencyContainer {
     
@@ -18,6 +19,10 @@ class DependencyContainer {
     
     lazy var currencyService: ICurrencyService = {
         return CurrencyService(currencyApiClient: currencyApiClient)
+    }()
+    
+    lazy var settings: IAppSettings = {
+        return AppSettings(keychainWrapper: KeychainWrapper.standard)
     }()
 
 }

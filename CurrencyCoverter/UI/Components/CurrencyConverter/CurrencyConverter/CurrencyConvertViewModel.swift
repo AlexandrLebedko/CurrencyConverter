@@ -10,4 +10,11 @@ import Foundation
 
 class CurrencyConvertViewModel {
     
+    private var currencyService: ICurrencyService
+    private var currencyRate: CurrencyRate
+    
+    init(currencyService: ICurrencyService, currencyRate: CurrencyRate) {
+        self.currencyService = currencyService
+        self.currencyRate = currencyRate
+    }
 }

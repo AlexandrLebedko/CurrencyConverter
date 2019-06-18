@@ -12,9 +12,10 @@ class CurrencyRatesAssembly: BaseViewControllerAssembly {
     typealias ViewController = CurrencyRatesVC
     typealias Context = ICurrencyCoordinator
     
-    func build(with context: ICurrencyCoordinator) -> CurrencyRatesVC {
-        let model = CurrencyRatesViewModel(currencyService: dependencyContainer.currencyService)
-        let vc = CurrencyRatesVC(viewModel: model, coordinator: context)
+    func build(with coordinator: ICurrencyCoordinator) -> CurrencyRatesVC {
+        let model = CurrencyRatesViewModel(currencyService: dependencyContainer.currencyService,
+                                           appSettings: dependencyContainer.settings)
+        let vc = CurrencyRatesVC(viewModel: model, coordinator: coordinator)
         return vc
     }
     

@@ -14,6 +14,7 @@ protocol ICoordinator: AnyObject {
     var navigationController: UINavigationController { get }
     
     func start()
+    func back()
     func childDidFinish(_ child: ICoordinator?)
 }
 
@@ -30,6 +31,10 @@ class Coordinator: ICoordinator {
     }
     
     func start() { }
+    
+    func back() {
+        
+    }
     
     func childDidFinish(_ child: ICoordinator?) {
         for (index, coordinator) in childCoordinators.enumerated() {

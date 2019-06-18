@@ -12,6 +12,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CurrencyRatesVC" customModule="CurrencyCoverter" customModuleProvider="target">
             <connections>
+                <outlet property="changeBaseCurrencyButton" destination="WV6-B9-MRm" id="e9E-db-sFS"/>
+                <outlet property="currencyRatesTableView" destination="1Tt-Da-aRt" id="HFy-kl-XwH"/>
+                <outlet property="topBar" destination="Dem-YO-73P" id="fqs-CD-sfe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,26 +23,33 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1Tt-Da-aRt">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1Tt-Da-aRt" customClass="RTableView" customModule="CurrencyCoverter" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="124" width="414" height="738"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dem-YO-73P">
-                    <rect key="frame" x="0.0" y="44" width="414" height="80"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="124"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WV6-B9-MRm">
-                            <rect key="frame" x="184" y="20" width="46" height="40"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WV6-B9-MRm">
+                            <rect key="frame" x="192" y="64" width="30" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="XZ2-kk-cb2"/>
                             </constraints>
-                            <state key="normal" title="Button"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                            <inset key="imageEdgeInsets" minX="-15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="changeBaseCurrencyButtonHandler" destination="-1" eventType="touchUpInside" id="gRr-YV-TWh"/>
+                            </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" red="0.50592909280727494" green="0.63249269325542934" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
-                        <constraint firstItem="WV6-B9-MRm" firstAttribute="centerY" secondItem="Dem-YO-73P" secondAttribute="centerY" id="K79-Rb-P3I"/>
+                        <constraint firstAttribute="bottom" secondItem="WV6-B9-MRm" secondAttribute="bottom" constant="20" id="L1R-1H-Jy4"/>
                         <constraint firstItem="WV6-B9-MRm" firstAttribute="centerX" secondItem="Dem-YO-73P" secondAttribute="centerX" id="cjF-kt-War"/>
-                        <constraint firstAttribute="height" constant="80" id="xgN-il-0W3"/>
                     </constraints>
                 </view>
             </subviews>
@@ -48,7 +58,8 @@
                 <constraint firstItem="Dem-YO-73P" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Kwy-32-xQj"/>
                 <constraint firstItem="Dem-YO-73P" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="QQR-Nv-ipM"/>
                 <constraint firstItem="1Tt-Da-aRt" firstAttribute="top" secondItem="Dem-YO-73P" secondAttribute="bottom" id="aeB-hy-obq"/>
-                <constraint firstItem="Dem-YO-73P" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="sr7-Fa-WVZ"/>
+                <constraint firstItem="1Tt-Da-aRt" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="80" id="jQW-5i-akI"/>
+                <constraint firstItem="Dem-YO-73P" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="sr7-Fa-WVZ"/>
                 <constraint firstItem="1Tt-Da-aRt" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="wlE-zH-c7Y"/>
                 <constraint firstItem="1Tt-Da-aRt" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="xtV-56-YNH"/>
                 <constraint firstItem="1Tt-Da-aRt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="yy4-3i-T2U"/>

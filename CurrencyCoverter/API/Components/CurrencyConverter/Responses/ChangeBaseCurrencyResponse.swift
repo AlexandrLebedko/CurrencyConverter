@@ -10,4 +10,9 @@ import Foundation
 
 class ChangeBaseCurrencyResponse: Decodable {
    
+    var success: Bool?
+    var date: Date?
+    var timestamp: Int?
+    var base: String?
+    var rates: [String: Float]?
 }

@@ -11,20 +11,26 @@ import UIKit
 class CurrencyRateTVCModel: RTableViewCellModel {
     
     private var currencyRate: CurrencyRate
+    private var showRate: Bool
     
-    init(currencyRate: CurrencyRate) {
+    init(currencyRate: CurrencyRate, showRate: Bool) {
         self.currencyRate = currencyRate
+        self.showRate = showRate
     }
     
     var countryFlatImageViewImage: UIImage? {
         return UIImage(named: currencyRate.symbol.lowercased())
     }
     
-    var symbolLabelText: String? {
+    var symbolLabelText: String {
         return currencyRate.symbol
     }
     
     var rateLabelText: String? {
-        return "\(currencyRate.rate)"
+        return String(format: "%.2f", currencyRate.rate)
+    }
+    
+    var rateLabelIsHidden: Bool {
+        return !showRate
     }
 }
