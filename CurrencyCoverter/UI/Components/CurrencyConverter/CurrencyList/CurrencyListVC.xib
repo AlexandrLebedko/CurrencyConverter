@@ -10,12 +10,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CurrencyListVC" customModule="CurrencyCoverter" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CurrencyListVC" customModule="CTranslate" customModuleProvider="target">
             <connections>
                 <outlet property="closeButton" destination="IyK-Wd-fTQ" id="RmX-AA-oL0"/>
                 <outlet property="currencyListTableView" destination="shU-Y9-GeY" id="eR2-Rm-6JN"/>
+                <outlet property="searchBar" destination="Ovq-Dm-DXL" id="8qS-dW-fPf"/>
                 <outlet property="titleLabel" destination="h6k-Ta-NGL" id="SkH-In-4CO"/>
                 <outlet property="topBar" destination="i2I-dW-VbJ" id="9Ea-Fp-j1E"/>
+                <outlet property="typistConstraint" destination="IEe-Nv-iNO" id="3Xh-Tb-cNx"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -24,8 +26,8 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="shU-Y9-GeY" customClass="RTableView" customModule="CurrencyCoverter" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="124" width="414" height="738"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="shU-Y9-GeY" customClass="RTableView" customModule="CTranslate" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="168" width="414" height="694"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                 </tableView>
@@ -45,35 +47,46 @@
                                 <action selector="closeButtonHandler" destination="-1" eventType="touchUpInside" id="kpP-dz-7kk"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select new base currency" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6k-Ta-NGL">
-                            <rect key="frame" x="90" y="84" width="234" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select New Base Currency" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6k-Ta-NGL">
+                            <rect key="frame" x="60" y="84" width="294" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="4lw-KT-Isb"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.50592909279999998" green="0.63249269330000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <color key="backgroundColor" red="0.50588235294117645" green="0.63137254901960782" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstItem="h6k-Ta-NGL" firstAttribute="centerX" secondItem="i2I-dW-VbJ" secondAttribute="centerX" id="5LU-Of-7dc"/>
+                        <constraint firstItem="h6k-Ta-NGL" firstAttribute="leading" secondItem="IyK-Wd-fTQ" secondAttribute="trailing" constant="10" id="im2-1b-FxU"/>
                         <constraint firstItem="IyK-Wd-fTQ" firstAttribute="leading" secondItem="i2I-dW-VbJ" secondAttribute="leading" constant="10" id="kYl-Pp-nzD"/>
                         <constraint firstAttribute="bottom" secondItem="IyK-Wd-fTQ" secondAttribute="bottom" constant="10" id="lEN-Qp-EEY"/>
                         <constraint firstAttribute="bottom" secondItem="h6k-Ta-NGL" secondAttribute="bottom" constant="19" id="q9y-jo-oy0"/>
                     </constraints>
                 </view>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Ovq-Dm-DXL">
+                    <rect key="frame" x="0.0" y="124" width="414" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="kOm-P7-pg8"/>
+                    </constraints>
+                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                </searchBar>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="shU-Y9-GeY" firstAttribute="top" secondItem="i2I-dW-VbJ" secondAttribute="bottom" id="2sH-fv-nlc"/>
-                <constraint firstItem="shU-Y9-GeY" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="IEe-Nv-iNO"/>
+                <constraint firstItem="Ovq-Dm-DXL" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="A6x-9X-Hef"/>
+                <constraint firstItem="Ovq-Dm-DXL" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="80" id="Ejt-x5-hc2"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="shU-Y9-GeY" secondAttribute="bottom" id="IEe-Nv-iNO"/>
+                <constraint firstItem="Ovq-Dm-DXL" firstAttribute="top" secondItem="i2I-dW-VbJ" secondAttribute="bottom" id="J5K-YV-bYp"/>
+                <constraint firstItem="shU-Y9-GeY" firstAttribute="top" secondItem="Ovq-Dm-DXL" secondAttribute="bottom" id="LA1-Kx-OLU"/>
                 <constraint firstItem="shU-Y9-GeY" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="PDe-bl-CyZ"/>
                 <constraint firstItem="shU-Y9-GeY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="VsB-d2-y3z"/>
-                <constraint firstItem="shU-Y9-GeY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="80" id="Zed-GN-Atf"/>
                 <constraint firstItem="i2I-dW-VbJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="c5l-r1-dld"/>
                 <constraint firstItem="i2I-dW-VbJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="six-Bq-SCc"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="i2I-dW-VbJ" secondAttribute="trailing" id="tgF-ue-KxO"/>
+                <constraint firstItem="Ovq-Dm-DXL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="zCC-NN-0Cg"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="152.67857142857142"/>

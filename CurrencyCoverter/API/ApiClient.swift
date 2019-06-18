@@ -57,18 +57,20 @@ public class ApiClient {
         
         print("Endpoint: ", endpoint)
         let task = session.dataTask(with: URLRequest(url: endpoint)) { data, response, error in
-            if let data = data {
-                do {
-                    print("Raw response: ", try? JSONSerialization.jsonObject(with: data, options: .allowFragments))
-                    let response = try self.jsonDecoder.decode(T.Response.self, from: data)
-                    completion(.success(response))
-                } catch let error {
+            DispatchQueue.main.async {
+                if let data = data {
+                    do {
+                        let response = try self.jsonDecoder.decode(T.Response.self, from: data)
+                        completion(.success(response))
+                    } catch let error {
+                        completion(.failure(error))
+                    }
+                } else if let error = error {
                     completion(.failure(error))
                 }
-            } else if let error = error {
-                completion(.failure(error))
             }
         }
+        
         task.resume()
     }
 }

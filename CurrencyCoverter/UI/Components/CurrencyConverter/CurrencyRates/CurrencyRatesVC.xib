@@ -10,11 +10,13 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CurrencyRatesVC" customModule="CurrencyCoverter" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CurrencyRatesVC" customModule="CTranslate" customModuleProvider="target">
             <connections>
                 <outlet property="changeBaseCurrencyButton" destination="WV6-B9-MRm" id="e9E-db-sFS"/>
                 <outlet property="currencyRatesTableView" destination="1Tt-Da-aRt" id="HFy-kl-XwH"/>
+                <outlet property="searchBar" destination="UF4-wb-r9j" id="rg1-P8-K5J"/>
                 <outlet property="topBar" destination="Dem-YO-73P" id="fqs-CD-sfe"/>
+                <outlet property="typistConstraint" destination="wlE-zH-c7Y" id="Edy-zj-2TV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,8 +25,8 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1Tt-Da-aRt" customClass="RTableView" customModule="CurrencyCoverter" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="124" width="414" height="738"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1Tt-Da-aRt" customClass="RTableView" customModule="CTranslate" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="168" width="414" height="694"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                 </tableView>
@@ -52,15 +54,25 @@
                         <constraint firstItem="WV6-B9-MRm" firstAttribute="centerX" secondItem="Dem-YO-73P" secondAttribute="centerX" id="cjF-kt-War"/>
                     </constraints>
                 </view>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="UF4-wb-r9j">
+                    <rect key="frame" x="0.0" y="124" width="414" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="gI4-cz-Qy9"/>
+                    </constraints>
+                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                </searchBar>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="UF4-wb-r9j" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="7Y7-Ih-Pf8"/>
+                <constraint firstItem="1Tt-Da-aRt" firstAttribute="top" secondItem="UF4-wb-r9j" secondAttribute="bottom" id="KZL-g8-FoN"/>
                 <constraint firstItem="Dem-YO-73P" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Kwy-32-xQj"/>
                 <constraint firstItem="Dem-YO-73P" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="QQR-Nv-ipM"/>
-                <constraint firstItem="1Tt-Da-aRt" firstAttribute="top" secondItem="Dem-YO-73P" secondAttribute="bottom" id="aeB-hy-obq"/>
-                <constraint firstItem="1Tt-Da-aRt" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="80" id="jQW-5i-akI"/>
+                <constraint firstItem="UF4-wb-r9j" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="80" id="iOe-yp-wf4"/>
+                <constraint firstItem="UF4-wb-r9j" firstAttribute="top" secondItem="Dem-YO-73P" secondAttribute="bottom" id="ihS-hx-MkS"/>
+                <constraint firstItem="UF4-wb-r9j" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="jpH-ud-UEd"/>
                 <constraint firstItem="Dem-YO-73P" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="sr7-Fa-WVZ"/>
-                <constraint firstItem="1Tt-Da-aRt" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="wlE-zH-c7Y"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="1Tt-Da-aRt" secondAttribute="bottom" id="wlE-zH-c7Y"/>
                 <constraint firstItem="1Tt-Da-aRt" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="xtV-56-YNH"/>
                 <constraint firstItem="1Tt-Da-aRt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="yy4-3i-T2U"/>
             </constraints>

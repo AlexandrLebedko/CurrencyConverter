@@ -13,14 +13,14 @@ class CurrencyRatesTableDataSource: RBaseTableViewDataSource, RTableViewDataSour
     private var currencyRates: [CurrencyRate]
     
     init(currencyRates: [CurrencyRate]) {
-        self.currencyRates = currencyRates
+        self.currencyRates = currencyRates.sorted(by: { $0.symbol < $1.symbol })
     }
     
     var viewModels: [RTableViewCellModel]? {
         if _viewModels == nil {
             _viewModels = currencyRates
                 .compactMap { CurrencyRateTVCModel(currencyRate: $0, showRate: true) }
-                .sorted(by: { $0.symbolLabelText < $1.symbolLabelText })
+            
         }
         
         return _viewModels

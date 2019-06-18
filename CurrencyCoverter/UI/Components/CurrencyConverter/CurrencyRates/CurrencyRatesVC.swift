@@ -9,7 +9,8 @@
 import UIKit
 import ReactiveSwift
 
-class CurrencyRatesVC: UIViewController {
+class CurrencyRatesVC: ViewController, IBindingViewController {
+    typealias ViewModel = CurrencyRatesViewModel
     
     private var viewModel: CurrencyRatesViewModel
     private var coordinator: ICurrencyCoordinator
@@ -18,11 +19,13 @@ class CurrencyRatesVC: UIViewController {
     @IBOutlet weak var currencyRatesTableView: RTableView!
     @IBOutlet weak var topBar: UIView!
     @IBOutlet weak var changeBaseCurrencyButton: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     init(viewModel: CurrencyRatesViewModel, coordinator: ICurrencyCoordinator) {
         self.viewModel = viewModel
         self.coordinator = coordinator
-        super.init(nibName: "CurrencyRatesVC", bundle: nil)
+        
+        super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,23 +35,38 @@ class CurrencyRatesVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        bind()
+        bind(to: viewModel)
         setup()
         viewModel.loadData()
     }
     
-    func bind() {
+    func bind(to viewModel: CurrencyRatesViewModel) {
+        super.bind(to: viewModel)
+
         changeBaseCurrencyButton.reactive.image(for: .normal) <~ viewModel.baseCurrencyButtonImage
         changeBaseCurrencyButton.reactive.title(for: .normal) <~ viewModel.baseCurrencyButtonTitle
         currencyRatesTableView.reactive.rDataSource <~ viewModel.currencyTableDataSource
     }
     
-    func setup() {
+    override func setup() {
+        searchBar.delegate = self
+        
+        Signal.merge(viewModel.currencyTableDataSource.signal.mapToVoid(), viewModel.alertErrorMessageSignal.mapToVoid()).observeValues { [weak self] in
+            guard let `self` = self else { return }
+            self.currencyRatesTableView.refreshControl?.endRefreshing()
+            
+        }
+        currencyRatesTableView.handleRefresh = { [unowned self] in self.viewModel.loadData() }
+
         currencyRatesTableView.adapter = currencyTableAdapter
         currencyTableAdapter.didSelectCellAction = { [unowned self] _, _, object in
             if let currencyRate = object as? CurrencyRate {
                 self.coordinator.navigateToConverter(with: currencyRate)
             }
+        }
+        
+        searchBar.reactive.continuousTextValues.observeValues { [unowned self] text in
+            self.viewModel.filter(by: text)
         }
     }
     
@@ -61,5 +79,12 @@ extension CurrencyRatesVC: UpdatableWithCurrency {
     
     func onBaseCurrencyChanged(baseCurrencySymbol: String?) {
         viewModel.loadData()
+    }
+}
+
+extension CurrencyRatesVC: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }

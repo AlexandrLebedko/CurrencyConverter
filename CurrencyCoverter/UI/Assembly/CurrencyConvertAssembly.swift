@@ -14,6 +14,7 @@ class CurrencyConvertAssembly: BaseViewControllerAssembly {
     
     func build(with context: Context) -> CurrencyConvertVC {
         let model = CurrencyConvertViewModel(currencyService: dependencyContainer.currencyService,
+                                             appSettings: dependencyContainer.settings,
                                              currencyRate: context.1)
         let vc = CurrencyConvertVC(viewModel: model, coordinator: context.0)
         return vc

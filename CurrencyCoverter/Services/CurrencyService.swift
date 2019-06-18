@@ -27,7 +27,7 @@ class CurrencyService: ICurrencyService {
                     callback(.failure(.decoding))
                 }
             case let .failure(error):
-                print("Get latest rates error: ", error)
+                callback(.failure(.server(message: error.localizedDescription)))
             }
         }
     }
@@ -43,7 +43,7 @@ class CurrencyService: ICurrencyService {
                     callback(.failure(.decoding))
                 }
             case let .failure(error):
-                print("Change base currency error: ", error)
+                callback(.failure(.server(message: error.localizedDescription)))
             }
         }
     }
@@ -71,7 +71,7 @@ class CurrencyService: ICurrencyService {
                     callback(.failure(.decoding))
                 }
             case let .failure(error):
-                print("Get supported symbols error: ", error)
+                callback(.failure(.server(message: error.localizedDescription)))
             }
         }
     }
