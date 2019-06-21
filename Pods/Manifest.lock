@@ -3,27 +3,35 @@ PODS:
     - ReactiveSwift (~> 6.0)
   - ReactiveSwift (6.0.0)
   - Result (5.0.0)
+  - SVProgressHUD (2.2.5)
   - SwiftKeychainWrapper (3.3.0)
+  - Typist (1.4.2)
 
 DEPENDENCIES:
   - ReactiveCocoa
   - ReactiveSwift
   - Result
+  - SVProgressHUD
   - SwiftKeychainWrapper
+  - Typist
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - ReactiveCocoa
     - ReactiveSwift
     - Result
+    - SVProgressHUD
     - SwiftKeychainWrapper
+    - Typist
 
 SPEC CHECKSUMS:
   ReactiveCocoa: 6d4c37ba236f5d9a7a55b2172cd09f19ba85f574
   ReactiveSwift: 24b7ed245617bbfd30ee0c87779b6c64ac1b4518
   Result: ed341d2f236af425b803e690e9bd8fd0a0cb7c5a
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftKeychainWrapper: ef5ad793bc0e08e24a5913f28345b8f7bc8e4123
+  Typist: 06465ab9867782aa6c81e38f073dfc01dab73deb
 
-PODFILE CHECKSUM: 7499b7c7924dfb5210c6b5ee208bd741bcda0cb9
+PODFILE CHECKSUM: a611cf95f5fc5e0247caa27fac1e0268732c103a
 
 COCOAPODS: 1.7.1
